@@ -28,6 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+let ytApiPromise = null;
+let ytPlayer = null;
+let videoAutoCompleted = false;
+
 // ── Sidebar ──────────────────────────────────────────────────
 function renderSidebar(module, currentLesson) {
   const sidebar = document.getElementById('lessonSidebar');
@@ -227,16 +231,103 @@ function loadYouTubeVideo(videoId, title, moduleId, lessonId) {
   const placeholder = document.getElementById('videoPlaceholder');
   if (!placeholder) return;
 
+  videoAutoCompleted = false;
   const resolvedId = (videoId || '').includes('http') ? extractYouTubeVideoId(videoId) : videoId;
   if (!resolvedId) return;
 
-  // Use direct iframe embed for maximum compatibility across browsers/network policies.
+  // Create target wrapper first; if YT API fails, fallback to plain iframe.
   placeholder.outerHTML = `
     <div class="video-container">
-      <iframe src="https://www.youtube-nocookie.com/embed/${resolvedId}?autoplay=1&rel=0"
-        title="${title}" allowfullscreen allow="autoplay; encrypted-media" loading="lazy">
-      </iframe>
+      <div id="lessonVideoPlayer"></div>
     </div>`;
+
+  ensureYouTubeApi()
+    .then(() => {
+      const host = window.location.protocol === 'https:' ? 'https://www.youtube.com' : undefined;
+
+      if (ytPlayer && typeof ytPlayer.destroy === 'function') {
+        ytPlayer.destroy();
+      }
+
+      ytPlayer = new window.YT.Player('lessonVideoPlayer', {
+        videoId: resolvedId,
+        ...(host ? { host } : {}),
+        playerVars: {
+          autoplay: 1,
+          rel: 0,
+          modestbranding: 1
+        },
+        events: {
+          onStateChange: event => {
+            if (event.data === window.YT.PlayerState.ENDED) {
+              autoMarkCompleteFromVideo(moduleId, lessonId);
+            }
+          }
+        }
+      });
+    })
+    .catch(() => {
+      renderVideoFallback(resolvedId, title, moduleId, lessonId);
+    });
+}
+
+function ensureYouTubeApi() {
+  if (window.YT && window.YT.Player) return Promise.resolve();
+  if (ytApiPromise) return ytApiPromise;
+
+  ytApiPromise = new Promise((resolve, reject) => {
+    const timeoutId = setTimeout(() => {
+      reject(new Error('YouTube API load timeout'));
+    }, 4000);
+
+    const previousReady = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = () => {
+      if (typeof previousReady === 'function') previousReady();
+      clearTimeout(timeoutId);
+      resolve();
+    };
+
+    let script = document.querySelector('script[data-yt-api="true"]');
+    if (!script) {
+      script = document.createElement('script');
+      script.src = 'https://www.youtube.com/iframe_api';
+      script.async = true;
+      script.setAttribute('data-yt-api', 'true');
+      script.onerror = () => {
+        clearTimeout(timeoutId);
+        reject(new Error('YouTube API failed to load'));
+      };
+      document.head.appendChild(script);
+    }
+  });
+
+  return ytApiPromise;
+}
+
+function renderVideoFallback(videoId, title, moduleId, lessonId) {
+  const target = document.getElementById('lessonVideoPlayer');
+  if (!target) return;
+
+  target.outerHTML = `
+    <div>
+      <iframe src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0"
+        title="${title}" allowfullscreen allow="autoplay; encrypted-media" loading="lazy" style="width:100%;aspect-ratio:16/9;border:0;border-radius:12px;">
+      </iframe>
+      <div style="margin-top:0.75rem;display:flex;justify-content:flex-end;">
+        <button class="btn-outline-gw" onclick="handleMarkComplete('${moduleId}','${lessonId}')">
+          <i class="bi bi-check2-circle me-1"></i>Mark Video Complete
+        </button>
+      </div>
+    </div>`;
+}
+
+function autoMarkCompleteFromVideo(moduleId, lessonId) {
+  if (videoAutoCompleted) return;
+  if (!Auth.isLoggedIn()) return;
+  if (Progress.isLessonComplete(lessonId)) return;
+
+  videoAutoCompleted = true;
+  handleMarkComplete(moduleId, lessonId);
 }
 
 function extractYouTubeVideoId(urlOrId) {

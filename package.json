@@ -6,7 +6,7 @@
     "dev": "netlify dev"
   },
   "dependencies": {
-    "mongodb": "^6.20.0"
+    "mongodb": "4.1"
   },
   "devDependencies": {
     "netlify-cli": "^17.37.1"
