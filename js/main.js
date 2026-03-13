@@ -127,11 +127,11 @@ function setActiveNavLink() {
 // ── Auth-aware Navigation ─────────────────────────────────────
 function updateNavAuth() {
   const user = Auth.getUser();
-  const loginBtns = document.querySelectorAll('.nav-login-btn');
-  const userMenus = document.querySelectorAll('.nav-user-menu');
-
-  loginBtns.forEach(btn => { btn.style.display = user ? 'none' : ''; });
-  userMenus.forEach(menu => {
+  // Class-based pattern (used by shared renderNavbar)
+  document.querySelectorAll('.nav-login-btn').forEach(btn => {
+    btn.style.display = user ? 'none' : '';
+  });
+  document.querySelectorAll('.nav-user-menu').forEach(menu => {
     if (user) {
       menu.style.display = '';
       const avatar = menu.querySelector('.nav-avatar');
@@ -142,6 +142,23 @@ function updateNavAuth() {
       menu.style.display = 'none';
     }
   });
+
+  // ID-based pattern (used by current static HTML pages)
+  const loginBtn = document.getElementById('nav-login-btn');
+  const userMenu = document.getElementById('nav-user-menu');
+  const avatarEl = document.getElementById('navUserAvatar');
+  const nameEl = document.getElementById('navUserName');
+
+  if (loginBtn) loginBtn.style.display = user ? 'none' : '';
+  if (userMenu) {
+    if (user) {
+      userMenu.classList.remove('d-none');
+      if (avatarEl) avatarEl.textContent = user.name.charAt(0).toUpperCase();
+      if (nameEl) nameEl.textContent = user.name;
+    } else {
+      userMenu.classList.add('d-none');
+    }
+  }
 }
 
 // ── Scroll Animations (Intersection Observer) ─────────────────
@@ -150,7 +167,6 @@ function initScrollAnimations() {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-    // ── Auth-aware Navigation (enhanced — supports both id and class nav patterns) ──
         observer.unobserve(entry.target);
       }
     });
