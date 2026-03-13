@@ -94,7 +94,19 @@ const Progress = {
 
   // Get a quiz score
   getQuizScore(moduleId) {
-    return this.getData().quizScores[moduleId] || null;
+    const raw = this.getData().quizScores[moduleId];
+    if (raw === undefined || raw === null) return null;
+    if (typeof raw === 'number') {
+      // Backward compatibility for legacy numeric-only score values.
+      return { score: raw, total: 100, pct: raw, takenAt: null };
+    }
+    if (typeof raw === 'object') {
+      const score = Number(raw.score ?? 0);
+      const total = Number(raw.total ?? 100) || 100;
+      const pct = Number(raw.pct ?? Math.round((score / total) * 100));
+      return { score, total, pct, takenAt: raw.takenAt || null };
+    }
+    return null;
   },
 
   // Check if all modules are completed (for certificate eligibility)

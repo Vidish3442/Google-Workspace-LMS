@@ -12,7 +12,21 @@ document.addEventListener('DOMContentLoaded', () => {
   renderActivityLog();
   renderAchievements();
   renderQuizScores();
+  fetchMongoUsersPreview();
 });
+
+async function fetchMongoUsersPreview() {
+  try {
+    const res = await fetch('/.netlify/functions/mongo');
+    if (!res.ok) return;
+    const payload = await res.json();
+    if (payload && payload.ok) {
+      console.log('Mongo users preview:', payload.data || []);
+    }
+  } catch (_err) {
+    // Ignore in local static mode where Netlify Functions are unavailable.
+  }
+}
 
 // ── Welcome Banner ────────────────────────────────────────────
 function renderWelcome(user) {

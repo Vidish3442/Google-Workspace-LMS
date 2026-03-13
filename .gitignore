@@ -1,1 +1,6 @@
 js/env.local.js
+node_modules/
+server/node_modules/
+server/.env
+.env
+.netlify/
