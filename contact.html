@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact — GW Training Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">
+      <div class="brand-logo"><i class="bi bi-mortarboard-fill"></i></div>
+      <span>GW Training</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+        <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-house me-1"></i>Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="courses.html"><i class="bi bi-collection-play me-1"></i>Courses</a></li>
+        <li class="nav-item"><a class="nav-link" href="dashboard.html"><i class="bi bi-speedometer2 me-1"></i>Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="resources.html"><i class="bi bi-folder2-open me-1"></i>Resources</a></li>
+        <li class="nav-item"><a class="nav-link active" href="contact.html"><i class="bi bi-chat-dots me-1"></i>Contact</a></li>
+      </ul>
+    </div>
+    <div class="ms-3 d-flex align-items-center gap-2">
+      <button class="btn-navbar-icon dark-mode-toggle"><i class="bi bi-moon-stars-fill"></i></button>
+      <div id="nav-login-btn"><a href="login.html" class="btn-primary-gw" style="padding:0.4rem 1rem;font-size:0.85rem"><i class="bi bi-person me-1"></i>Login</a></div>
+      <div id="nav-user-menu" class="d-none">
+        <div class="dropdown">
+          <button class="btn-navbar-icon dropdown-toggle" data-bs-toggle="dropdown" style="gap:0.4rem;font-size:0.85rem;padding:0.4rem 0.8rem;border-radius:50px">
+            <div class="user-avatar-sm" id="navUserAvatar">?</div>
+            <span id="navUserName" class="d-none d-md-inline"></span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="dashboard.html"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="#" id="logoutBtn"><i class="bi bi-box-arrow-left me-2"></i>Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="page-hero" style="background:linear-gradient(135deg,#fbbc04 0%,#f57c00 100%)">
+  <div class="container text-center text-white py-5 mt-5">
+    <h1 class="display-5 fw-bold mb-3"><i class="bi bi-envelope-heart me-2"></i>Get in Touch</h1>
+    <p class="lead mb-0" style="opacity:0.9">We're here to help you succeed in your Google Workspace training journey.</p>
+  </div>
+</section>
+
+<div class="container py-5">
+  <div class="row g-5">
+
+    <!-- Contact Form -->
+    <div class="col-lg-7">
+      <div class="contact-card">
+        <h3 class="contact-card-title"><i class="bi bi-send me-2" style="color:var(--google-blue)"></i>Send Us a Message</h3>
+        <p class="contact-card-sub">Have a question about a lesson, quiz, or technical issue? We'll get back to you within 24 hours.</p>
+
+        <div id="formSuccess" class="alert alert-success d-none" style="border-radius:var(--border-radius-sm)">
+          <i class="bi bi-check-circle-fill me-2"></i>
+          <strong>Message sent!</strong> We'll reply to your email within 24 hours. Keep learning! 🎉
+        </div>
+
+        <form id="contactForm" novalidate>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="cName">Full Name *</label>
+                <input type="text" id="cName" class="form-input" placeholder="Your name" required>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="cEmail">Email Address *</label>
+                <input type="email" id="cEmail" class="form-input" placeholder="your@email.com" required>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label for="cSubject">Subject *</label>
+                <select id="cSubject" class="form-input" required>
+                  <option value="">— Select a topic —</option>
+                  <option>Question about a lesson</option>
+                  <option>Quiz / scoring issue</option>
+                  <option>Technical problem</option>
+                  <option>Request for a resource</option>
+                  <option>Certificate inquiry</option>
+                  <option>General feedback</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group">
+                <label for="cMessage">Message *</label>
+                <textarea id="cMessage" class="form-input" rows="5" placeholder="Describe your question or issue in detail..." required style="resize:vertical"></textarea>
+              </div>
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn-primary-gw w-100" style="justify-content:center;padding:0.8rem;font-size:1rem">
+                <i class="bi bi-send-fill me-2"></i>Send Message
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Info Cards -->
+    <div class="col-lg-5">
+      <div class="d-flex flex-column gap-3">
+
+        <div class="contact-info-card">
+          <div class="contact-info-icon" style="background:#1a73e81a;color:#1a73e8">
+            <i class="bi bi-envelope-fill"></i>
+          </div>
+          <div>
+            <div class="contact-info-label">Email Support</div>
+            <div class="contact-info-value">support@gwtraining.com</div>
+            <div class="contact-info-sub">We reply within 24 hours</div>
+          </div>
+        </div>
+
+        <div class="contact-info-card">
+          <div class="contact-info-icon" style="background:#34a8531a;color:#34a853">
+            <i class="bi bi-clock-fill"></i>
+          </div>
+          <div>
+            <div class="contact-info-label">Support Hours</div>
+            <div class="contact-info-value">Mon – Fri, 8AM – 6PM</div>
+            <div class="contact-info-sub">Eastern Standard Time (EST)</div>
+          </div>
+        </div>
+
+        <div class="contact-info-card">
+          <div class="contact-info-icon" style="background:#fbbc041a;color:#f57c00">
+            <i class="bi bi-robot"></i>
+          </div>
+          <div>
+            <div class="contact-info-label">AI Assistant</div>
+            <div class="contact-info-value">Available 24/7</div>
+            <div class="contact-info-sub">Use the chatbot for instant answers</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- FAQ Accordion -->
+      <div class="mt-4">
+        <h5 style="font-weight:700;color:var(--text-primary);margin-bottom:1rem"><i class="bi bi-question-circle me-2" style="color:var(--google-blue)"></i>Frequently Asked Questions</h5>
+        <div class="accordion" id="faqAccordion">
+
+          <div class="accordion-item faq-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed faq-btn" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                How do I track my progress?
+              </button>
+            </h2>
+            <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body faq-body">
+                Your progress is automatically saved after you mark each lesson as complete. Visit your <a href="dashboard.html">Dashboard</a> to see detailed progress for every module and your quiz scores.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item faq-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed faq-btn" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                How do I earn my certificate?
+              </button>
+            </h2>
+            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body faq-body">
+                Complete all 12 lessons and pass all 3 module quizzes (60% minimum score). Your certificate will be automatically generated and available to download at <a href="certificate.html">certificate.html</a>.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item faq-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed faq-btn" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                Can I retake a quiz?
+              </button>
+            </h2>
+            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body faq-body">
+                Yes! You can retake any module quiz as many times as you'd like. Only your most recent score is saved to your dashboard.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item faq-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed faq-btn" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                Is my data private and secure?
+              </button>
+            </h2>
+            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body faq-body">
+                All your data (progress, scores, notes) is stored locally in your browser using localStorage. Nothing is sent to a server. Your notes and progress remain on your device only.
+              </div>
+            </div>
+          </div>
+
+          <div class="accordion-item faq-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed faq-btn" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                What if I change browsers or devices?
+              </button>
+            </h2>
+            <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body faq-body">
+                Since progress is stored in localStorage per-browser, it won't sync across devices automatically. Make sure to always use the same browser to maintain your progress history.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="footer-brand"><div class="brand-logo me-2"><i class="bi bi-mortarboard-fill"></i></div><span>GW Training Portal</span></div>
+        <p class="footer-desc">Professional Google Workspace training for modern teams.</p>
+      </div>
+      <div class="col-6 col-lg-4">
+        <h6 class="footer-heading">Platform</h6>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="resources.html">Resources</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <h6 class="footer-heading">Contact Info</h6>
+        <ul class="footer-links">
+          <li><i class="bi bi-envelope me-1"></i> support@gwtraining.com</li>
+          <li><i class="bi bi-clock me-1"></i> Mon–Fri, 8AM – 6PM EST</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom"><span>© 2024 GW Training Portal</span></div>
+  </div>
+</footer>
+
+<!-- Chatbot -->
+<div id="chatbotFab" class="chatbot-fab" title="Ask the AI Assistant"><i class="bi bi-chat-dots-fill"></i></div>
+<div id="chatbotPanel" class="chatbot-panel">
+  <div class="chatbot-header">
+    <div class="chatbot-avatar"><i class="bi bi-robot"></i></div>
+    <div><div class="chatbot-name">GW Assistant</div><div class="chatbot-status">● Online</div></div>
+    <button class="chatbot-close" id="chatbotClose"><i class="bi bi-x-lg"></i></button>
+  </div>
+  <div class="chatbot-messages" id="chatbotMessages"></div>
+  <div class="chatbot-suggestions" id="chatbotSuggestions"></div>
+  <div class="chatbot-input-bar">
+    <input type="text" id="chatbotInput" placeholder="Ask a question..." autocomplete="off">
+    <button id="chatbotSend"><i class="bi bi-send-fill"></i></button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/progress.js"></script>
+<script src="js/main.js"></script>
+<script src="js/chatbot.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  Chatbot.init();
+});
+
+document.getElementById('contactForm')?.addEventListener('submit', function(e) {
+  e.preventDefault();
+  const name = document.getElementById('cName').value.trim();
+  const email = document.getElementById('cEmail').value.trim();
+  const subject = document.getElementById('cSubject').value;
+  const message = document.getElementById('cMessage').value.trim();
+
+  if (!name || !email || !subject || !message) {
+    Toast.show('Please fill in all required fields.', 'error');
+    return;
+  }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    Toast.show('Please enter a valid email address.', 'error');
+    return;
+  }
+
+  // Simulate form submission
+  const btn = this.querySelector('button[type="submit"]');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Sending...';
+
+  setTimeout(() => {
+    document.getElementById('formSuccess').classList.remove('d-none');
+    this.reset();
+    btn.disabled = false;
+    btn.innerHTML = '<i class="bi bi-send-fill me-2"></i>Send Message';
+    document.getElementById('formSuccess').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 1500);
+});
+</script>
+</body>
+</html>

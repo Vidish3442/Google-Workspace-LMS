@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resources — GW Training Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">
+      <div class="brand-logo"><i class="bi bi-mortarboard-fill"></i></div>
+      <span>GW Training</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+        <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-house me-1"></i>Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="courses.html"><i class="bi bi-collection-play me-1"></i>Courses</a></li>
+        <li class="nav-item"><a class="nav-link" href="dashboard.html"><i class="bi bi-speedometer2 me-1"></i>Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link active" href="resources.html"><i class="bi bi-folder2-open me-1"></i>Resources</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html"><i class="bi bi-chat-dots me-1"></i>Contact</a></li>
+      </ul>
+    </div>
+    <div class="ms-3 d-flex align-items-center gap-2">
+      <button class="btn-navbar-icon dark-mode-toggle" title="Toggle dark mode"><i class="bi bi-moon-stars-fill"></i></button>
+      <div id="nav-login-btn"><a href="login.html" class="btn-primary-gw" style="padding:0.4rem 1rem;font-size:0.85rem"><i class="bi bi-person me-1"></i>Login</a></div>
+      <div id="nav-user-menu" class="d-none">
+        <div class="dropdown">
+          <button class="btn-navbar-icon dropdown-toggle" data-bs-toggle="dropdown" style="gap:0.4rem;font-size:0.85rem;padding:0.4rem 0.8rem;border-radius:50px">
+            <div class="user-avatar-sm" id="navUserAvatar">?</div>
+            <span id="navUserName" class="d-none d-md-inline"></span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="dashboard.html"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="#" id="logoutBtn"><i class="bi bi-box-arrow-left me-2"></i>Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="page-hero" style="background:linear-gradient(135deg,#34a853 0%,#1e7e34 100%)">
+  <div class="container text-center text-white py-5 mt-5">
+    <h1 class="display-5 fw-bold mb-3"><i class="bi bi-folder2-open me-2"></i>Resource Library</h1>
+    <p class="lead mb-0 opacity-75">Cheat sheets, reference guides, and practice materials to support your learning.</p>
+  </div>
+</section>
+
+<!-- Filter + Search Bar -->
+<div class="sticky-top" style="top:64px;background:var(--bg-primary);border-bottom:1px solid var(--border-color);z-index:900">
+  <div class="container py-2 d-flex flex-wrap gap-2 align-items-center justify-content-between">
+    <div class="d-flex gap-2 flex-wrap">
+      <button class="filter-tab active" data-filter="all">All Resources</button>
+      <button class="filter-tab" data-filter="module1">Module 1</button>
+      <button class="filter-tab" data-filter="module2">Module 2</button>
+      <button class="filter-tab" data-filter="module3">Module 3</button>
+      <button class="filter-tab" data-filter="general">General</button>
+    </div>
+    <div style="position:relative">
+      <i class="bi bi-search" style="position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text-muted);font-size:0.85rem"></i>
+      <input type="text" id="resourceSearch" placeholder="Search resources..." style="border:1px solid var(--border-color);border-radius:20px;padding:0.4rem 0.8rem 0.4rem 2.2rem;font-size:0.85rem;background:var(--bg-secondary);color:var(--text-primary);outline:none;width:200px">
+    </div>
+  </div>
+</div>
+
+<div class="container py-5">
+
+  <!-- Resources count -->
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <h2 style="font-size:1.4rem;font-weight:700;color:var(--text-primary)">Available Resources</h2>
+    <span id="resourceCount" style="font-size:0.85rem;color:var(--text-muted);background:var(--bg-secondary);padding:0.3rem 0.8rem;border-radius:20px;border:1px solid var(--border-color)">Loading...</span>
+  </div>
+
+  <div class="row g-4" id="resourcesGrid">
+    <!-- Filled by script -->
+  </div>
+
+  <!-- Empty state -->
+  <div id="noResources" class="text-center py-5 d-none">
+    <i class="bi bi-folder-x" style="font-size:3rem;color:var(--text-muted)"></i>
+    <p class="mt-2" style="color:var(--text-muted)">No resources found for this filter.</p>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="footer-brand"><div class="brand-logo me-2"><i class="bi bi-mortarboard-fill"></i></div><span>GW Training Portal</span></div>
+        <p class="footer-desc">Professional Google Workspace training materials.</p>
+      </div>
+      <div class="col-6 col-lg-4">
+        <h6 class="footer-heading">Platform</h6>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <h6 class="footer-heading">Need Help?</h6>
+        <p style="color:var(--text-muted);font-size:0.875rem">Can't find a resource? Let us know and we'll add it.</p>
+        <a href="contact.html" class="btn-outline-gw" style="font-size:0.85rem">
+          <i class="bi bi-envelope me-1"></i>Request a Resource
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom"><span>© 2024 GW Training Portal</span></div>
+  </div>
+</footer>
+
+<!-- Chatbot -->
+<div id="chatbotFab" class="chatbot-fab" title="Ask the AI Assistant"><i class="bi bi-chat-dots-fill"></i></div>
+<div id="chatbotPanel" class="chatbot-panel">
+  <div class="chatbot-header">
+    <div class="chatbot-avatar"><i class="bi bi-robot"></i></div>
+    <div><div class="chatbot-name">GW Assistant</div><div class="chatbot-status">● Online</div></div>
+    <button class="chatbot-close" id="chatbotClose"><i class="bi bi-x-lg"></i></button>
+  </div>
+  <div class="chatbot-messages" id="chatbotMessages"></div>
+  <div class="chatbot-suggestions" id="chatbotSuggestions"></div>
+  <div class="chatbot-input-bar">
+    <input type="text" id="chatbotInput" placeholder="Ask a question..." autocomplete="off">
+    <button id="chatbotSend"><i class="bi bi-send-fill"></i></button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/progress.js"></script>
+<script src="js/main.js"></script>
+<script src="js/chatbot.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  let currentFilter = 'all';
+  let currentSearch = '';
+
+  renderResources();
+  Chatbot.init();
+
+  // Filter tabs
+  document.querySelectorAll('.filter-tab').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+      currentFilter = this.dataset.filter;
+      renderResources();
+    });
+  });
+
+  // Search
+  document.getElementById('resourceSearch')?.addEventListener('input', function() {
+    currentSearch = this.value.toLowerCase();
+    renderResources();
+  });
+});
+
+function renderResources() {
+  const grid = document.getElementById('resourcesGrid');
+  const noRes = document.getElementById('noResources');
+  const countEl = document.getElementById('resourceCount');
+  const currentFilter = document.querySelector('.filter-tab.active')?.dataset.filter || 'all';
+  const currentSearch = document.getElementById('resourceSearch')?.value.toLowerCase() || '';
+
+  let resources = GWData.resources;
+
+  if (currentFilter !== 'all') {
+    resources = resources.filter(r => r.module === currentFilter);
+  }
+
+  if (currentSearch) {
+    resources = resources.filter(r =>
+      r.title.toLowerCase().includes(currentSearch) ||
+      r.desc.toLowerCase().includes(currentSearch) ||
+      r.category.toLowerCase().includes(currentSearch)
+    );
+  }
+
+  countEl.textContent = `${resources.length} resource${resources.length !== 1 ? 's' : ''}`;
+
+  if (resources.length === 0) {
+    grid.innerHTML = '';
+    noRes.classList.remove('d-none');
+    return;
+  }
+  noRes.classList.add('d-none');
+
+  grid.innerHTML = resources.map(r => `
+    <div class="col-sm-6 col-lg-4">
+      <div class="resource-card">
+        <div class="resource-icon-wrap" style="background:${r.color}15;color:${r.color}">
+          <i class="bi ${r.icon}" style="font-size:1.5rem"></i>
+        </div>
+        <div class="resource-tag" style="background:${r.color}15;color:${r.color}">${r.category}</div>
+        <h6 class="resource-title">${r.title}</h6>
+        <p class="resource-desc">${r.desc}</p>
+        <div class="resource-footer">
+          <span class="resource-meta"><i class="bi bi-file-earmark me-1"></i>${r.type} · ${r.size}</span>
+          <button class="btn-download" style="background:${r.color};color:#fff" onclick="downloadResource('${r.title}', '${r.type}')">
+            <i class="bi bi-download me-1"></i>Download
+          </button>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+function downloadResource(title, type) {
+  Toast.show(`Downloading "${title}" (${type})... 📥`, 'info', 3000);
+  // In a real app, this would trigger a file download
+}
+</script>
+</body>
+</html>

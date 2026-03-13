@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — GW Training Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">
+      <div class="brand-logo"><i class="bi bi-mortarboard-fill"></i></div>
+      <span>GW Training</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+        <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-house me-1"></i>Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="courses.html"><i class="bi bi-collection-play me-1"></i>Courses</a></li>
+        <li class="nav-item"><a class="nav-link active" href="dashboard.html"><i class="bi bi-speedometer2 me-1"></i>Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="resources.html"><i class="bi bi-folder2-open me-1"></i>Resources</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html"><i class="bi bi-chat-dots me-1"></i>Contact</a></li>
+      </ul>
+    </div>
+    <div class="ms-3 d-flex align-items-center gap-2">
+      <button class="btn-navbar-icon dark-mode-toggle" title="Toggle dark mode"><i class="bi bi-moon-stars-fill"></i></button>
+      <div id="nav-login-btn"><a href="login.html" class="btn-primary-gw" style="padding:0.4rem 1rem;font-size:0.85rem"><i class="bi bi-person me-1"></i>Login</a></div>
+      <div id="nav-user-menu" class="d-none">
+        <div class="dropdown">
+          <button class="btn-navbar-icon dropdown-toggle" data-bs-toggle="dropdown" style="gap:0.4rem;font-size:0.85rem;padding:0.4rem 0.8rem;border-radius:50px">
+            <div class="user-avatar-sm" id="navUserAvatar">?</div>
+            <span id="navUserName" class="d-none d-md-inline"></span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="dashboard.html"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+            <li><a class="dropdown-item" href="certificate.html"><i class="bi bi-award me-2"></i>Certificate</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="#" id="logoutBtn"><i class="bi bi-box-arrow-left me-2"></i>Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="container" style="padding-top:90px;padding-bottom:3rem">
+
+  <!-- Welcome Banner -->
+  <div class="dashboard-welcome" id="dashboardWelcome">
+    <div class="welcome-content">
+      <div>
+        <div class="welcome-greeting">Welcome back, <span id="welcomeUser">Learner</span>! 👋</div>
+        <div class="welcome-sub">Member since <span id="userJoined">—</span></div>
+      </div>
+      <div class="welcome-actions">
+        <a href="certificate.html" class="btn-outline-gw" id="viewCertBtn" style="display:none">
+          <i class="bi bi-award me-1"></i>View Certificate
+        </a>
+        <a href="courses.html" class="btn-primary-gw">
+          <i class="bi bi-play-circle me-1"></i>Continue Learning
+        </a>
+      </div>
+    </div>
+    <!-- Overall Progress Ring -->
+    <div class="overall-ring-wrap">
+      <svg viewBox="0 0 80 80" class="progress-ring">
+        <circle cx="40" cy="40" r="34" class="ring-bg"></circle>
+        <circle cx="40" cy="40" r="34" class="ring-fill" id="overallRing" style="stroke-dashoffset:213.6"></circle>
+      </svg>
+      <div class="ring-label">
+        <div class="ring-pct" id="ringPct">0%</div>
+        <div class="ring-sub">Complete</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stat Cards -->
+  <div class="stats-grid" style="margin-bottom:2rem">
+    <div class="stat-card stat-blue">
+      <div class="stat-icon"><i class="bi bi-book-half"></i></div>
+      <div class="stat-val" id="statCompleted">0</div>
+      <div class="stat-label">Lessons Done</div>
+    </div>
+    <div class="stat-card stat-green">
+      <div class="stat-icon"><i class="bi bi-collection-play"></i></div>
+      <div class="stat-val" id="statTotal">12</div>
+      <div class="stat-label">Total Lessons</div>
+    </div>
+    <div class="stat-card stat-yellow">
+      <div class="stat-icon"><i class="bi bi-speedometer2"></i></div>
+      <div class="stat-val" id="statProgress">0%</div>
+      <div class="stat-label">Progress</div>
+    </div>
+    <div class="stat-card stat-red">
+      <div class="stat-icon"><i class="bi bi-patch-question-fill"></i></div>
+      <div class="stat-val" id="statQuizzes">0</div>
+      <div class="stat-label">Quizzes Taken</div>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <!-- Left column -->
+    <div class="col-lg-7">
+
+      <!-- Module Progress -->
+      <div class="dashboard-card mb-4">
+        <div class="dashboard-card-header">
+          <h5><i class="bi bi-bar-chart-steps me-2"></i>Module Progress</h5>
+          <a href="courses.html" style="font-size:0.8rem;color:var(--google-blue)">View All</a>
+        </div>
+        <div id="moduleProgressList">
+          <!-- Filled by dashboard.js -->
+        </div>
+      </div>
+
+      <!-- Quiz Scores -->
+      <div class="dashboard-card">
+        <div class="dashboard-card-header">
+          <h5><i class="bi bi-trophy me-2"></i>Quiz Scores</h5>
+        </div>
+        <div id="quizScoresList">
+          <!-- Filled by dashboard.js -->
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right column -->
+    <div class="col-lg-5">
+
+      <!-- Achievements -->
+      <div class="dashboard-card mb-4">
+        <div class="dashboard-card-header">
+          <h5><i class="bi bi-award me-2"></i>Achievements</h5>
+        </div>
+        <div class="badges-grid" id="achievementsList">
+          <!-- Filled by dashboard.js -->
+        </div>
+      </div>
+
+      <!-- Activity Log -->
+      <div class="dashboard-card">
+        <div class="dashboard-card-header">
+          <h5><i class="bi bi-clock-history me-2"></i>Recent Activity</h5>
+        </div>
+        <div id="activityList">
+          <!-- Filled by dashboard.js -->
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="footer-brand"><div class="brand-logo me-2"><i class="bi bi-mortarboard-fill"></i></div><span>GW Training Portal</span></div>
+        <p class="footer-desc">Empowering professionals with Google Workspace skills.</p>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6 class="footer-heading">Platform</h6>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="resources.html">Resources</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6 class="footer-heading">Account</h6>
+        <ul class="footer-links">
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="certificate.html">Certificate</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <h6 class="footer-heading">Support</h6>
+        <p style="color:var(--text-muted);font-size:0.875rem">Need help? Reach out via our contact page or chat with the AI assistant.</p>
+        <a href="contact.html" class="btn-outline-gw" style="font-size:0.85rem">
+          <i class="bi bi-envelope me-1"></i>Contact Support
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom"><span>© 2024 GW Training Portal</span></div>
+  </div>
+</footer>
+
+<!-- Chatbot -->
+<div id="chatbotFab" class="chatbot-fab" title="Ask the AI Assistant"><i class="bi bi-chat-dots-fill"></i></div>
+<div id="chatbotPanel" class="chatbot-panel">
+  <div class="chatbot-header">
+    <div class="chatbot-avatar"><i class="bi bi-robot"></i></div>
+    <div><div class="chatbot-name">GW Assistant</div><div class="chatbot-status">● Online</div></div>
+    <button class="chatbot-close" id="chatbotClose"><i class="bi bi-x-lg"></i></button>
+  </div>
+  <div class="chatbot-messages" id="chatbotMessages"></div>
+  <div class="chatbot-suggestions" id="chatbotSuggestions"></div>
+  <div class="chatbot-input-bar">
+    <input type="text" id="chatbotInput" placeholder="Ask a question..." autocomplete="off">
+    <button id="chatbotSend"><i class="bi bi-send-fill"></i></button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/progress.js"></script>
+<script src="js/main.js"></script>
+<script src="js/dashboard.js"></script>
+<script src="js/chatbot.js"></script>
+</body>
+</html>

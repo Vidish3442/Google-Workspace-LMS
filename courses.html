@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Courses — GW Training Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">
+      <div class="brand-logo"><i class="bi bi-mortarboard-fill"></i></div>
+      <span>GW Training</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+        <li class="nav-item"><a class="nav-link" href="index.html"><i class="bi bi-house me-1"></i>Home</a></li>
+        <li class="nav-item"><a class="nav-link active" href="courses.html"><i class="bi bi-collection-play me-1"></i>Courses</a></li>
+        <li class="nav-item"><a class="nav-link" href="dashboard.html"><i class="bi bi-speedometer2 me-1"></i>Dashboard</a></li>
+        <li class="nav-item"><a class="nav-link" href="resources.html"><i class="bi bi-folder2-open me-1"></i>Resources</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html"><i class="bi bi-chat-dots me-1"></i>Contact</a></li>
+      </ul>
+    </div>
+    <div class="ms-3 d-flex align-items-center gap-2">
+      <button class="btn-navbar-icon dark-mode-toggle" title="Toggle dark mode"><i class="bi bi-moon-stars-fill"></i></button>
+      <div id="nav-login-btn">
+        <a href="login.html" class="btn-primary-gw" style="padding:0.4rem 1rem;font-size:0.85rem">
+          <i class="bi bi-person me-1"></i>Login
+        </a>
+      </div>
+      <div id="nav-user-menu" class="d-none">
+        <div class="dropdown">
+          <button class="btn-navbar-icon dropdown-toggle" data-bs-toggle="dropdown" id="userAvatarBtn" style="gap:0.4rem;font-size:0.85rem;padding:0.4rem 0.8rem;border-radius:50px">
+            <div class="user-avatar-sm" id="navUserAvatar">?</div>
+            <span id="navUserName" class="d-none d-md-inline"></span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="dashboard.html"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+            <li><a class="dropdown-item" href="certificate.html"><i class="bi bi-award me-2"></i>Certificate</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="#" id="logoutBtn"><i class="bi bi-box-arrow-left me-2"></i>Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="page-hero" style="background:linear-gradient(135deg,#1a73e8 0%,#0d47a1 100%)">
+  <div class="container text-center text-white py-5 mt-5">
+    <h1 class="display-5 fw-bold mb-3"><i class="bi bi-collection-play me-2"></i>All Courses</h1>
+    <p class="lead mb-0 opacity-75">3 modules · 12 lessons · Quizzes & certificates</p>
+  </div>
+</section>
+
+<!-- Filter Tabs -->
+<div class="sticky-top" style="top:64px;background:var(--bg-primary);border-bottom:1px solid var(--border-color);z-index:900">
+  <div class="container py-2">
+    <div class="d-flex gap-2 flex-wrap">
+      <button class="filter-tab active" data-filter="all">All Modules</button>
+      <button class="filter-tab" data-filter="module1">Module 1</button>
+      <button class="filter-tab" data-filter="module2">Module 2</button>
+      <button class="filter-tab" data-filter="module3">Module 3</button>
+    </div>
+  </div>
+</div>
+
+<!-- Overall Progress -->
+<div class="container py-4">
+  <div class="overall-progress-card" id="overallProgressCard" style="display:none">
+    <div class="d-flex align-items-center justify-content-between mb-2">
+      <span style="font-weight:600;color:var(--text-primary)"><i class="bi bi-lightning-fill me-2 text-warning"></i>Your Overall Progress</span>
+      <span id="overallPct" style="font-weight:700;color:var(--google-blue)">0%</span>
+    </div>
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" id="overallBar" style="width:0%"></div>
+    </div>
+    <div class="mt-2" style="font-size:0.8rem;color:var(--text-muted)"><span id="completedLessons">0</span> of 12 lessons completed</div>
+  </div>
+
+  <!-- Modules -->
+  <div id="modulesContainer">
+    <!-- Dynamically Rendered -->
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-4">
+        <div class="footer-brand">
+          <div class="brand-logo me-2"><i class="bi bi-mortarboard-fill"></i></div>
+          <span>GW Training Portal</span>
+        </div>
+        <p class="footer-desc">Master Google Workspace tools with structured, practical learning modules designed for professionals.</p>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6 class="footer-heading">Platform</h6>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="courses.html">Courses</a></li>
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="resources.html">Resources</a></li>
+        </ul>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6 class="footer-heading">Modules</h6>
+        <ul class="footer-links">
+          <li><a href="courses.html?filter=module1">Day 1 Module</a></li>
+          <li><a href="courses.html?filter=module2">Day 2 Module</a></li>
+          <li><a href="courses.html?filter=module3">Day 3 Module</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-4">
+        <h6 class="footer-heading">Quick Start</h6>
+        <p style="color:var(--text-muted);font-size:0.875rem">New to the platform? Start with Module 1 to learn communication and scheduling fundamentals.</p>
+        <a href="lesson.html?module=module1&lesson=l1-1" class="btn-primary-gw" style="font-size:0.85rem;padding:0.5rem 1rem">
+          <i class="bi bi-play-circle me-1"></i>Start Learning
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2024 GW Training Portal. Built for professional growth.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Chatbot FAB -->
+<div id="chatbotFab" class="chatbot-fab" title="Ask the AI Assistant">
+  <i class="bi bi-chat-dots-fill"></i>
+</div>
+<div id="chatbotPanel" class="chatbot-panel">
+  <div class="chatbot-header">
+    <div class="chatbot-avatar"><i class="bi bi-robot"></i></div>
+    <div><div class="chatbot-name">GW Assistant</div><div class="chatbot-status">● Online</div></div>
+    <button class="chatbot-close" id="chatbotClose"><i class="bi bi-x-lg"></i></button>
+  </div>
+  <div class="chatbot-messages" id="chatbotMessages"></div>
+  <div class="chatbot-suggestions" id="chatbotSuggestions"></div>
+  <div class="chatbot-input-bar">
+    <input type="text" id="chatbotInput" placeholder="Ask about Google Workspace..." autocomplete="off">
+    <button id="chatbotSend"><i class="bi bi-send-fill"></i></button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/progress.js"></script>
+<script src="js/main.js"></script>
+<script src="js/chatbot.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const loggedIn = Auth.isLoggedIn();
+
+  // Show overall progress if logged in
+  if (loggedIn) {
+    const overall = Progress.getOverallProgress();
+    const completed = GWData.modules.reduce((acc, m) => {
+      return acc + m.lessons.filter(l => Progress.isLessonComplete(l.id)).length;
+    }, 0);
+    document.getElementById('overallProgressCard').style.display = '';
+    document.getElementById('overallPct').textContent = overall + '%';
+    document.getElementById('overallBar').style.width = overall + '%';
+    document.getElementById('completedLessons').textContent = completed;
+  }
+
+  // URL filter
+  const urlParams = new URLSearchParams(window.location.search);
+  const urlFilter = urlParams.get('filter');
+  if (urlFilter) {
+    document.querySelectorAll('.filter-tab').forEach(t => {
+      t.classList.toggle('active', t.dataset.filter === urlFilter);
+    });
+  }
+
+  // Render modules
+  renderModules(urlFilter || 'all');
+
+  // Filter tabs
+  document.querySelectorAll('.filter-tab').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+      this.classList.add('active');
+      renderModules(this.dataset.filter);
+    });
+  });
+
+  Chatbot.init();
+});
+
+function renderModules(filter) {
+  const container = document.getElementById('modulesContainer');
+  const modules = filter === 'all' ? GWData.modules : GWData.modules.filter(m => m.id === filter);
+
+  container.innerHTML = modules.map(mod => {
+    const loggedIn = Auth.isLoggedIn();
+    const progress = loggedIn ? Progress.getModuleProgress(mod.id) : 0;
+    const quizScore = loggedIn ? Progress.getQuizScore(mod.id) : null;
+
+    const colorMap = { module1: '#1a73e8', module2: '#34a853', module3: '#9c27b0' };
+    const color = colorMap[mod.id] || '#1a73e8';
+
+    const lessonsHTML = mod.lessons.map((lesson, i) => {
+      const done = loggedIn && Progress.isLessonComplete(lesson.id);
+      return `
+        <a href="lesson.html?module=${mod.id}&lesson=${lesson.id}" class="lesson-row ${done ? 'lesson-done' : ''}">
+          <div class="lesson-num" style="${done ? `background:${color};color:#fff;border-color:${color}` : ''}">
+            ${done ? '<i class="bi bi-check2"></i>' : (i + 1)}
+          </div>
+          <div class="lesson-info">
+            <div class="lesson-title-sm">${lesson.title}</div>
+            <div class="lesson-meta-sm"><i class="bi bi-clock me-1"></i>${lesson.duration}</div>
+          </div>
+          <i class="bi bi-chevron-right lesson-arrow" style="color:${color}"></i>
+        </a>`;
+    }).join('');
+
+    return `
+      <div class="module-section" data-module="${mod.id}">
+        <div class="module-section-header" style="border-left:4px solid ${color}">
+          <div class="d-flex align-items-center gap-3">
+            <div class="module-section-icon" style="background:${color}15;color:${color}">
+              <i class="bi ${mod.icon}"></i>
+            </div>
+            <div>
+              <div class="module-section-day" style="color:${color}">Day ${mod.day}</div>
+              <h2 class="module-section-title">${mod.title}</h2>
+              <p class="module-section-desc">${mod.description}</p>
+            </div>
+          </div>
+          <div class="module-section-actions">
+            ${loggedIn ? `<div class="module-progress-inline">
+              <span style="font-weight:700;color:${color};font-size:1.1rem">${progress}%</span>
+              <div class="progress-bar-track" style="width:80px">
+                <div class="progress-bar-fill" style="width:${progress}%;background:${color}"></div>
+              </div>
+            </div>` : ''}
+            ${quizScore !== null ? `<div class="quiz-badge-sm" style="background:${color}15;color:${color}">
+              <i class="bi bi-trophy me-1"></i>Quiz: ${quizScore}%
+            </div>` : ''}
+            <a href="quiz.html?module=${mod.id}" class="btn-quiz-sm" style="background:${color}15;color:${color};border:1px solid ${color}30">
+              <i class="bi bi-patch-question me-1"></i>Take Quiz
+            </a>
+          </div>
+        </div>
+        <div class="lessons-list">${lessonsHTML}</div>
+      </div>`;
+  }).join('');
+}
+</script>
+</body>
+</html>

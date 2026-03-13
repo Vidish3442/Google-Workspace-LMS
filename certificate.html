@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certificate — GW Training Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .cert-page-bg {
+      background: linear-gradient(135deg, #f8f9ff 0%, #e8f0fe 50%, #fce8f3 100%);
+      min-height: 100vh;
+    }
+    [data-theme="dark"] .cert-page-bg {
+      background: linear-gradient(135deg, #111827 0%, #1a1a2e 50%, #16213e 100%);
+    }
+    @media print {
+      nav, footer, .no-print { display: none !important; }
+      .cert-page-bg { background: white !important; }
+      body { padding: 0 !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top no-print">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">
+      <div class="brand-logo"><i class="bi bi-mortarboard-fill"></i></div>
+      <span>GW Training</span>
+    </a>
+    <div class="ms-auto d-flex align-items-center gap-2">
+      <a href="dashboard.html" class="btn-navbar-icon" style="font-size:0.8rem">
+        <i class="bi bi-speedometer2 me-1"></i><span class="d-none d-md-inline">Dashboard</span>
+      </a>
+      <button class="btn-navbar-icon dark-mode-toggle"><i class="bi bi-moon-stars-fill"></i></button>
+      <div id="nav-login-btn"><a href="login.html" class="btn-primary-gw" style="padding:0.4rem 1rem;font-size:0.85rem"><i class="bi bi-person me-1"></i>Login</a></div>
+      <div id="nav-user-menu" class="d-none">
+        <div class="dropdown">
+          <button class="btn-navbar-icon dropdown-toggle" data-bs-toggle="dropdown" style="gap:0.4rem;font-size:0.85rem;padding:0.4rem 0.8rem;border-radius:50px">
+            <div class="user-avatar-sm" id="navUserAvatar">?</div>
+            <span id="navUserName" class="d-none d-md-inline"></span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="dashboard.html"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="#" id="logoutBtn"><i class="bi bi-box-arrow-left me-2"></i>Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="cert-page-bg" style="padding-top:80px;padding-bottom:3rem">
+  <div class="container" style="max-width:900px">
+
+    <!-- NOT COMPLETED STATE -->
+    <div id="notCompleteSection" class="d-none">
+      <div class="text-center py-5">
+        <div style="font-size:5rem;margin-bottom:1rem">🏆</div>
+        <h2 style="font-weight:800;color:var(--text-primary);margin-bottom:0.5rem">Almost There!</h2>
+        <p style="color:var(--text-muted);max-width:500px;margin:0 auto 2rem">Complete all lessons and pass all quizzes to unlock your Google Workspace certificate.</p>
+
+        <!-- Progress needed -->
+        <div class="row g-3 justify-content-center mb-4" id="requirementsList"></div>
+
+        <a href="courses.html" class="btn-primary-gw" style="font-size:1rem;padding:0.8rem 2rem">
+          <i class="bi bi-play-circle me-2"></i>Continue Learning
+        </a>
+      </div>
+    </div>
+
+    <!-- COMPLETED CERTIFICATE -->
+    <div id="certSection" class="d-none">
+      <div class="text-center mb-4 no-print">
+        <h2 style="font-weight:800;color:var(--text-primary)">🎉 Congratulations! You've Earned It!</h2>
+        <p style="color:var(--text-muted)">You've successfully completed all modules. Here is your certificate!</p>
+        <div class="d-flex gap-2 justify-content-center flex-wrap">
+          <button class="btn-primary-gw" onclick="window.print()">
+            <i class="bi bi-printer me-2"></i>Print Certificate
+          </button>
+          <button class="btn-outline-gw" onclick="downloadCertificate()">
+            <i class="bi bi-download me-2"></i>Download PDF
+          </button>
+          <button class="btn-outline-gw" onclick="shareCertificate()">
+            <i class="bi bi-share me-2"></i>Share
+          </button>
+        </div>
+      </div>
+
+      <!-- The Certificate Itself -->
+      <div class="certificate-wrap" id="theCertificate">
+        <!-- Border decoration -->
+        <div class="cert-corner cert-corner-tl"></div>
+        <div class="cert-corner cert-corner-tr"></div>
+        <div class="cert-corner cert-corner-bl"></div>
+        <div class="cert-corner cert-corner-br"></div>
+
+        <!-- Header -->
+        <div class="cert-header">
+          <div class="cert-logo-wrap">
+            <i class="bi bi-mortarboard-fill"></i>
+          </div>
+          <div class="cert-org">GW Training Portal</div>
+          <div class="cert-type">Certificate of Completion</div>
+        </div>
+
+        <!-- Body -->
+        <div class="cert-body">
+          <div class="cert-present-text">This certifies that</div>
+          <div class="cert-name" id="certName">—</div>
+          <div class="cert-present-text">has successfully completed the</div>
+          <div class="cert-heading">Google Workspace Professional Training</div>
+          <div class="cert-subheading">covering Gmail, Google Calendar, Google Docs, Google Sheets, Google Drive &amp; Network Troubleshooting</div>
+        </div>
+
+        <!-- Stats row -->
+        <div class="cert-stats">
+          <div class="cert-stat">
+            <div class="cert-stat-val">12</div>
+            <div class="cert-stat-lbl">Lessons</div>
+          </div>
+          <div class="cert-stat-divider"></div>
+          <div class="cert-stat">
+            <div class="cert-stat-val">3</div>
+            <div class="cert-stat-lbl">Modules</div>
+          </div>
+          <div class="cert-stat-divider"></div>
+          <div class="cert-stat">
+            <div class="cert-stat-val" id="certAvgScore">—</div>
+            <div class="cert-stat-lbl">Avg. Score</div>
+          </div>
+          <div class="cert-stat-divider"></div>
+          <div class="cert-stat">
+            <div class="cert-stat-val" id="certDate">—</div>
+            <div class="cert-stat-lbl">Completed</div>
+          </div>
+        </div>
+
+        <!-- Seal -->
+        <div class="cert-footer">
+          <div class="cert-seal">
+            <i class="bi bi-patch-check-fill" style="font-size:2.5rem;color:#1a73e8"></i>
+            <div class="cert-seal-text">Verified</div>
+          </div>
+          <div class="cert-sig-area">
+            <div class="cert-sig-line"></div>
+            <div class="cert-sig-label">Program Director</div>
+            <div class="cert-sig-name">GW Training Portal</div>
+          </div>
+          <div class="cert-id">
+            <div style="font-size:0.7rem;color:#999">Certificate ID</div>
+            <div id="certId" style="font-size:0.75rem;font-weight:600;color:#5f6368;letter-spacing:0.05em">—</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NOT LOGGED IN -->
+    <div id="notLoggedIn" class="d-none text-center py-5">
+      <i class="bi bi-lock-fill" style="font-size:4rem;color:var(--text-muted)"></i>
+      <h3 style="font-weight:700;color:var(--text-primary);margin-top:1rem">Sign In Required</h3>
+      <p style="color:var(--text-muted)">Please log in to view your certificate or track your progress.</p>
+      <a href="login.html?redirect=certificate.html" class="btn-primary-gw" style="margin-top:0.5rem;font-size:1rem;padding:0.75rem 2rem">
+        <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="site-footer no-print">
+  <div class="container">
+    <div class="footer-bottom"><span>© 2024 GW Training Portal. Keep growing!</span></div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/progress.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  if (!Auth.isLoggedIn()) {
+    document.getElementById('notLoggedIn').classList.remove('d-none');
+    return;
+  }
+
+  const user = Auth.getUser();
+  const complete = Progress.isCourseComplete();
+
+  if (complete) {
+    showCertificate(user);
+  } else {
+    showProgress(user);
+  }
+});
+
+function showCertificate(user) {
+  document.getElementById('certSection').classList.remove('d-none');
+
+  document.getElementById('certName').textContent = user.name;
+
+  // Avg quiz score
+  const scores = GWData.modules.map(m => Progress.getQuizScore(m.id)).filter(s => s !== null);
+  const avg = scores.length ? Math.round(scores.reduce((a, b) => a + b, 0) / scores.length) : 0;
+  document.getElementById('certAvgScore').textContent = avg + '%';
+
+  // Date
+  const now = new Date();
+  document.getElementById('certDate').textContent = now.toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+
+  // Certificate ID
+  const certId = 'GWT-' + btoa(user.email).replace(/[^A-Z0-9]/g, '').substring(0, 10).toUpperCase();
+  document.getElementById('certId').textContent = certId;
+}
+
+function showProgress(user) {
+  document.getElementById('notCompleteSection').classList.remove('d-none');
+
+  const reqs = document.getElementById('requirementsList');
+  const moduleColors = { module1: '#1a73e8', module2: '#34a853', module3: '#9c27b0' };
+
+  reqs.innerHTML = GWData.modules.map(mod => {
+    const progress = Progress.getModuleProgress(mod.id);
+    const quizScore = Progress.getQuizScore(mod.id);
+    const quizPassed = quizScore !== null && quizScore >= 60;
+    const color = moduleColors[mod.id];
+
+    return `
+      <div class="col-sm-4">
+        <div style="background:var(--bg-primary);border:1px solid var(--border-color);border-radius:var(--border-radius);padding:1.25rem;text-align:left">
+          <div style="font-size:0.75rem;font-weight:600;color:${color};text-transform:uppercase;letter-spacing:0.05em;margin-bottom:0.5rem">Day ${mod.day}</div>
+          <div style="font-size:0.9rem;font-weight:600;color:var(--text-primary);margin-bottom:0.75rem">${mod.title.split('–').pop().trim()}</div>
+          
+          <div class="d-flex justify-content-between mb-1" style="font-size:0.75rem;color:var(--text-muted)">
+            <span>Lessons</span>
+            <span style="font-weight:600;color:${color}">${progress}%</span>
+          </div>
+          <div style="height:4px;background:var(--border-color);border-radius:2px;margin-bottom:0.6rem">
+            <div style="height:100%;width:${progress}%;background:${color};border-radius:2px"></div>
+          </div>
+
+          <div style="font-size:0.75rem" class="d-flex gap-2">
+            <span style="color:${progress>=100 ? '#34a853' : '#ea4335'}">${progress>=100 ? '✓' : '✗'} Lessons</span>
+            <span style="color:${quizPassed ? '#34a853' : '#ea4335'}">${quizPassed ? '✓' : '✗'} Quiz ${quizScore !== null ? '(' + quizScore + '%)' : ''}</span>
+          </div>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function downloadCertificate() {
+  Toast.show('Opening print dialog — use "Save as PDF" to download. 📄', 'info', 4000);
+  setTimeout(() => window.print(), 500);
+}
+
+function shareCertificate() {
+  const user = Auth.getUser();
+  const text = `I just completed the Google Workspace Professional Training on GW Training Portal! 🎉 #GoogleWorkspace #Learning`;
+  if (navigator.share) {
+    navigator.share({ title: 'My GW Certificate', text });
+  } else {
+    navigator.clipboard.writeText(text);
+    Toast.show('Share text copied to clipboard! 📋', 'success');
+  }
+}
+</script>
+</body>
+</html>
