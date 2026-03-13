@@ -28,10 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-let youtubeApiPromise = null;
-let lessonPlayer = null;
-let autoCompletedByVideo = false;
-
 // ── Sidebar ──────────────────────────────────────────────────
 function renderSidebar(module, currentLesson) {
   const sidebar = document.getElementById('lessonSidebar');
@@ -231,91 +227,16 @@ function loadYouTubeVideo(videoId, title, moduleId, lessonId) {
   const placeholder = document.getElementById('videoPlaceholder');
   if (!placeholder) return;
 
-  autoCompletedByVideo = false;
   const resolvedId = (videoId || '').includes('http') ? extractYouTubeVideoId(videoId) : videoId;
   if (!resolvedId) return;
 
-  // Render container first so we can attach the YouTube player API.
+  // Use direct iframe embed for maximum compatibility across browsers/network policies.
   placeholder.outerHTML = `
     <div class="video-container">
-      <div id="lessonVideoPlayer"></div>
+      <iframe src="https://www.youtube-nocookie.com/embed/${resolvedId}?autoplay=1&rel=0"
+        title="${title}" allowfullscreen allow="autoplay; encrypted-media" loading="lazy">
+      </iframe>
     </div>`;
-
-  ensureYouTubeApi()
-    .then(() => {
-      if (!window.YT || !window.YT.Player) {
-        fallbackYouTubeIframe(resolvedId, title);
-        return;
-      }
-
-      if (lessonPlayer && typeof lessonPlayer.destroy === 'function') {
-        lessonPlayer.destroy();
-      }
-
-      lessonPlayer = new window.YT.Player('lessonVideoPlayer', {
-        videoId: resolvedId,
-        host: 'https://www.youtube-nocookie.com',
-        playerVars: {
-          autoplay: 1,
-          rel: 0,
-          modestbranding: 1
-        },
-        events: {
-          onStateChange: event => {
-            if (event.data === window.YT.PlayerState.ENDED) {
-              autoMarkCompleteFromVideo(moduleId, lessonId);
-            }
-          }
-        }
-      });
-    })
-    .catch(() => {
-      fallbackYouTubeIframe(resolvedId, title);
-    });
-}
-
-function ensureYouTubeApi() {
-  if (window.YT && window.YT.Player) return Promise.resolve();
-  if (youtubeApiPromise) return youtubeApiPromise;
-
-  youtubeApiPromise = new Promise((resolve, reject) => {
-    const existingScript = document.querySelector('script[data-yt-api="true"]');
-
-    window.onYouTubeIframeAPIReady = () => resolve();
-
-    if (!existingScript) {
-      const script = document.createElement('script');
-      script.src = 'https://www.youtube.com/iframe_api';
-      script.async = true;
-      script.setAttribute('data-yt-api', 'true');
-      script.onerror = reject;
-      document.head.appendChild(script);
-    }
-
-    setTimeout(() => {
-      if (window.YT && window.YT.Player) resolve();
-    }, 1200);
-  });
-
-  return youtubeApiPromise;
-}
-
-function fallbackYouTubeIframe(videoId, title) {
-  const target = document.getElementById('lessonVideoPlayer');
-  if (!target) return;
-  target.outerHTML = `
-    <iframe src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0"
-      title="${title}" allowfullscreen allow="autoplay; encrypted-media" loading="lazy">
-    </iframe>`;
-}
-
-function autoMarkCompleteFromVideo(moduleId, lessonId) {
-  if (autoCompletedByVideo) return;
-  if (!Auth.isLoggedIn()) return;
-  if (Progress.isLessonComplete(lessonId)) return;
-
-  autoCompletedByVideo = true;
-  handleMarkComplete(moduleId, lessonId);
 }
 
 function extractYouTubeVideoId(urlOrId) {
