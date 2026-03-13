@@ -62,10 +62,14 @@
     <div class="row align-items-center g-5">
       <div class="col-lg-6">
         <div class="hero-badge"><i class="bi bi-google"></i> Official Google Workspace Tools Training</div>
+        <div id="homeWelcome" class="chip" style="display:none;margin:0.8rem 0 0.4rem;background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.35);color:#fff">
+          <i class="bi bi-person-check-fill me-1"></i>
+          <span id="homeWelcomeName"></span>
+        </div>
         <h1>Master Google Workspace <span style="color:#fbbc04">Like a Pro</span></h1>
         <p>A structured 3-day learning program covering Gmail, Google Calendar, Docs, Sheets, and Drive — plus internet troubleshooting basics.</p>
         <div class="d-flex gap-3 flex-wrap">
-          <a href="courses.html" class="btn-primary-gw" style="text-decoration:none;border-radius:24px;box-shadow:0 4px 20px rgba(251,188,4,.4);background:#fbbc04;color:#202124;font-weight:700">
+          <a id="heroPrimaryBtn" href="courses.html" class="btn-primary-gw" style="text-decoration:none;border-radius:24px;box-shadow:0 4px 20px rgba(251,188,4,.4);background:#fbbc04;color:#202124;font-weight:700">
             <i class="bi bi-play-circle-fill"></i> Start Learning
           </a>
           <a href="#modules" class="btn-secondary-gw" style="text-decoration:none;background:rgba(255,255,255,.15);color:white;border-color:rgba(255,255,255,.4)">
@@ -375,6 +379,21 @@
 <script>
   // Update module progress bars on home page
   document.addEventListener('DOMContentLoaded', () => {
+    const user = Auth.getUser();
+    const welcomeEl = document.getElementById('homeWelcome');
+    const welcomeNameEl = document.getElementById('homeWelcomeName');
+    const heroPrimaryBtn = document.getElementById('heroPrimaryBtn');
+
+    if (user && welcomeEl && welcomeNameEl) {
+      welcomeNameEl.textContent = `Welcome back, ${user.name.split(' ')[0]}!`;
+      welcomeEl.style.display = 'inline-flex';
+    }
+
+    if (user && heroPrimaryBtn) {
+      heroPrimaryBtn.href = 'dashboard.html';
+      heroPrimaryBtn.innerHTML = '<i class="bi bi-speedometer2"></i> Go to Dashboard';
+    }
+
     GWData.modules.forEach(mod => {
       const pct = Progress.getModuleProgress(mod.id);
       const pctEl = document.getElementById(`prog-${mod.id}`);
