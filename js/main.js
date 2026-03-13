@@ -129,16 +129,26 @@ function updateNavAuth() {
   const user = Auth.getUser();
   // Class-based pattern (used by shared renderNavbar)
   document.querySelectorAll('.nav-login-btn').forEach(btn => {
-    btn.style.display = user ? 'none' : '';
+    if (user) {
+      btn.classList.add('d-none');
+      btn.classList.remove('d-flex');
+      btn.style.display = 'none';
+    } else {
+      btn.classList.remove('d-none');
+      if (!btn.classList.contains('d-flex')) btn.classList.add('d-flex');
+      btn.style.display = '';
+    }
   });
   document.querySelectorAll('.nav-user-menu').forEach(menu => {
     if (user) {
+      menu.classList.remove('d-none');
       menu.style.display = '';
       const avatar = menu.querySelector('.nav-avatar');
       if (avatar) avatar.textContent = user.name.charAt(0).toUpperCase();
       const nameEl = menu.querySelector('.nav-user-name');
       if (nameEl) nameEl.textContent = user.name;
     } else {
+      menu.classList.add('d-none');
       menu.style.display = 'none';
     }
   });
