@@ -20,8 +20,6 @@ function renderWelcome(user) {
   if (el) el.textContent = user.name.split(' ')[0];
   const joined = document.getElementById('userJoined');
   if (joined) joined.textContent = formatDate(user.joinedAt);
-  const certBtn = document.getElementById('viewCertBtn');
-  if (certBtn && Progress.isCourseComplete()) certBtn.style.display = '';
 }
 
 // ── Stats Cards ───────────────────────────────────────────────

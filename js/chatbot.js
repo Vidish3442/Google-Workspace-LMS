@@ -23,8 +23,8 @@ const Chatbot = {
     { keys: ['ping', 'tracert', 'ipconfig', 'network', 'internet', 'connectivity', 'troubleshoot', 'ttl'], response: '🌐 To test internet connectivity, open Command Prompt and type: <code>ping 8.8.8.8</code>. If you get replies, the internet is working. Use <code>tracert google.com</code> to see the route. Use <code>ipconfig</code> to see your IP address.' },
     // Troubleshooting
     { keys: ['slow', 'not loading', 'connection', 'wifi', 'router', 'modem', 'dns', 'flush'], response: '🔧 Basic troubleshooting steps: 1) Restart your router (unplug 30 sec). 2) Restart your device. 3) Run <code>ping 8.8.8.8</code> in Command Prompt. 4) Flush DNS: <code>ipconfig /flushdns</code>. 5) Clear browser cache (Ctrl+Shift+Delete).' },
-    // Certificate
-    { keys: ['certificate', 'completion', 'diploma', 'finish', 'done', 'complete all'], response: '🏆 To earn your <strong>Google Workspace Training Certificate</strong>, complete all 12 lessons across the 3 modules. Then visit the Certificate page from your Dashboard to download it!' },
+    // Course completion
+    { keys: ['certificate', 'completion', 'diploma', 'finish', 'done', 'complete all'], response: '🏆 To complete the full course, finish all 12 lessons across the 3 modules and pass each module quiz. You can track everything from your Dashboard.' },
     // Progress / Dashboard
     { keys: ['progress', 'dashboard', 'score', 'result', 'completed'], response: '📈 Check your <strong>Dashboard</strong> to see your progress across all 3 modules, quiz scores, completed lessons, and earned achievements. Click Dashboard in the top navigation.' },
     // Email writing help

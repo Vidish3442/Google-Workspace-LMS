@@ -228,8 +228,8 @@ function showResults() {
         <button class="btn-outline-gw" onclick="retakeQuiz()">
           <i class="bi bi-arrow-repeat me-1"></i>Retake Quiz
         </button>
-        ${pct >= 75 ? `<a href="certificate.html" class="btn-primary-gw" style="text-decoration:none">
-          <i class="bi bi-award me-1"></i>View Certificate
+        ${pct >= 75 ? `<a href="dashboard.html" class="btn-primary-gw" style="text-decoration:none">
+          <i class="bi bi-speedometer2 me-1"></i>Go to Dashboard
         </a>` : ''}
       </div>
     </div>

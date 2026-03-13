@@ -1,0 +1,146 @@
+/* Lightweight Google Sites-like homepage overrides */
+:root {
+  --sl-bg: #f8f9fa;
+  --sl-card: #ffffff;
+  --sl-text: #202124;
+  --sl-muted: #5f6368;
+  --sl-border: #dadce0;
+  --sl-blue: #1a73e8;
+}
+
+.home-shell {
+  background: var(--sl-bg);
+}
+
+.home-wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 3rem;
+}
+
+.home-title-block {
+  background: var(--sl-card);
+  border: 1px solid var(--sl-border);
+  border-radius: 8px;
+  padding: 1rem 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.home-kicker {
+  color: var(--sl-muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.25rem;
+}
+
+.home-h1 {
+  font-size: 1.8rem;
+  margin: 0;
+  font-weight: 700;
+}
+
+.home-p {
+  color: var(--sl-muted);
+  margin: 0.45rem 0 0;
+  font-size: 0.95rem;
+}
+
+.home-section {
+  background: var(--sl-card);
+  border: 1px solid var(--sl-border);
+  border-radius: 8px;
+  padding: 1rem 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.home-section h2 {
+  font-size: 1.15rem;
+  margin: 0 0 0.75rem;
+}
+
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.home-card {
+  border: 1px solid var(--sl-border);
+  border-radius: 8px;
+  padding: 0.9rem;
+  background: #fff;
+}
+
+.home-card h3 {
+  font-size: 1rem;
+  margin: 0 0 0.45rem;
+}
+
+.home-card ul {
+  margin: 0 0 0.8rem 1rem;
+  padding: 0;
+}
+
+.home-card li {
+  font-size: 0.87rem;
+  color: var(--sl-muted);
+  margin-bottom: 0.2rem;
+}
+
+.home-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: #e8f0fe;
+  color: var(--sl-blue);
+  border: 1px solid #d2e3fc;
+  border-radius: 999px;
+  padding: 0.2rem 0.65rem;
+  font-size: 0.77rem;
+  font-weight: 600;
+}
+
+.home-actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.home-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.home-link {
+  border: 1px solid var(--sl-border);
+  border-radius: 8px;
+  padding: 0.65rem 0.75rem;
+  color: var(--sl-text);
+  text-decoration: none;
+  font-size: 0.9rem;
+  background: #fff;
+}
+
+.home-link:hover {
+  border-color: var(--sl-blue);
+  color: var(--sl-blue);
+}
+
+.home-footer-note {
+  color: var(--sl-muted);
+  font-size: 0.82rem;
+  text-align: center;
+  margin-top: 0.8rem;
+}
+
+@media (max-width: 900px) {
+  .home-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .home-links {
+    grid-template-columns: 1fr;
+  }
+}

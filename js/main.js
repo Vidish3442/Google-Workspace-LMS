@@ -241,7 +241,6 @@ function renderNavbar(activePage) {
             <li><span class="nav-user-name px-3 py-2 d-block fw-bold" style="font-size:0.9rem;"></span></li>
             <li><hr class="dropdown-divider my-1"></li>
             <li><a class="dropdown-item" href="dashboard.html"><i class="bi bi-speedometer2 me-2"></i>Dashboard</a></li>
-            <li><a class="dropdown-item" href="certificate.html"><i class="bi bi-award me-2"></i>Certificate</a></li>
             <li><hr class="dropdown-divider my-1"></li>
             <li><a class="dropdown-item logout-btn text-danger" href="#"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
           </ul>
