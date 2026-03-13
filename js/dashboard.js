@@ -19,7 +19,7 @@ function renderWelcome(user) {
   const el = document.getElementById('welcomeUser');
   if (el) el.textContent = user.name.split(' ')[0];
   const joined = document.getElementById('userJoined');
-  if (joined) joined.textContent = `Member since ${formatDate(user.joinedAt)}`;
+  if (joined) joined.textContent = formatDate(user.joinedAt);
   const certBtn = document.getElementById('viewCertBtn');
   if (certBtn && Progress.isCourseComplete()) certBtn.style.display = '';
 }

@@ -154,9 +154,17 @@ function updateNavAuth() {
     if (user) {
       userMenu.classList.remove('d-none');
       if (avatarEl) avatarEl.textContent = user.name.charAt(0).toUpperCase();
-      if (nameEl) nameEl.textContent = user.name;
+      // Keep trigger compact: show avatar only (full name can appear in page content)
+      if (nameEl) {
+        nameEl.textContent = '';
+        nameEl.style.display = 'none';
+      }
     } else {
       userMenu.classList.add('d-none');
+      if (nameEl) {
+        nameEl.textContent = '';
+        nameEl.style.display = 'none';
+      }
     }
   }
 }
